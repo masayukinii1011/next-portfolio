@@ -25,10 +25,10 @@ export default function PostDetail({
 	return (
 		<div className="mx-4 px-8 pb-8 bg-white rounded-lg shadow-lg">
 			<PageTitle title={title} />
-			{category === "music" ? (
-				<MusicArticle />
-			) : category === "contact" ? (
+			{category === "contact" ? (
 				<ContactForm />
+			) : category === "music" ? (
+				<MusicArticle />
 			) : (
 				<PostDetailArticle
 					imageUrl={imageUrl}
