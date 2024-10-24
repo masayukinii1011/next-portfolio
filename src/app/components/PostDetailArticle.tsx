@@ -26,7 +26,7 @@ export default function PostDetailArticle({
 						alt={imageTitle}
 						width={640}
 						height={360}
-						className="border-gray-200 rounded-md"
+						className="border-gray"
 					/>
 				</div>
 			)}
@@ -37,7 +37,7 @@ export default function PostDetailArticle({
 							href={githubLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="mx-1 rounded-md border border-gray-200 hover:border-gray-300"
+							className="mx-1 border-gray hover:border-gray-300"
 						>
 							<Image
 								src="/github_logo.png"
@@ -53,7 +53,7 @@ export default function PostDetailArticle({
 							href={demoLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="mx-1 rounded-md border border-gray-200 hover:border-gray-300"
+							className="mx-1 border-gray hover:border-gray-300"
 						>
 							<span className="center h-10 min-w-28 font-bold">DEMO</span>
 						</a>

@@ -17,8 +17,12 @@ export default async function Header() {
 			>
 				<h1>msykn</h1>
 			</Link>
-			<PcMenu categories={categories} />
-			<MobileMenu categories={categories} />
+			<div className="hidden lg:block">
+				<PcMenu categories={categories} />
+			</div>
+			<div className="lg:hidden">
+				<MobileMenu categories={categories} />
+			</div>
 		</header>
 	);
 }

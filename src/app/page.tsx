@@ -18,7 +18,7 @@ export default function Home() {
 					return (
 						<span
 							key={key}
-							className="inline-blockhome-letter"
+							className="inline-block home-letter"
 							style={{ animationDelay: `${i * 100}ms` }}
 						>
 							{letter}

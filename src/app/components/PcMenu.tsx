@@ -12,21 +12,19 @@ export default function PcMenu({
 	categories: Category[];
 }) {
 	return (
-		<div className="hidden lg:block">
-			<NavigationMenu>
-				<NavigationMenuList>
-					{categories.map((category) => (
-						<NavigationMenuItem key={category.slug}>
-							<NavigationMenuLink
-								href={`/${category.slug}`}
-								className="center white-bold h-14 px-2 hover:bg-hover"
-							>
-								{category.title}
-							</NavigationMenuLink>
-						</NavigationMenuItem>
-					))}
-				</NavigationMenuList>
-			</NavigationMenu>
-		</div>
+		<NavigationMenu>
+			<NavigationMenuList>
+				{categories.map((category) => (
+					<NavigationMenuItem key={category.slug}>
+						<NavigationMenuLink
+							href={`/${category.slug}`}
+							className="center white-bold h-14 px-2 hover:bg-hover"
+						>
+							{category.title}
+						</NavigationMenuLink>
+					</NavigationMenuItem>
+				))}
+			</NavigationMenuList>
+		</NavigationMenu>
 	);
 }
