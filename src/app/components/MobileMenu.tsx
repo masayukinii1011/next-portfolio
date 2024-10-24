@@ -31,7 +31,7 @@ export default function MobileMenu({
 				<SheetTrigger asChild className="text-white">
 					<button type="button" className="p-2">
 						<svg
-							className="w-6 h-6 text-white"
+							className="h-6 w-6 text-white"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -60,7 +60,7 @@ export default function MobileMenu({
 								<li key={category.slug}>
 									<Link
 										href={`/${category.slug}`}
-										className="p-2 inline-block w-full font-bold text-white hover:bg-hover"
+										className="white-bold inline-block w-full p-2 hover:bg-hover"
 									>
 										{category.title}
 									</Link>

@@ -107,6 +107,11 @@
 		background-color: rgba(0, 0, 0, 0.05);
 	}
 
+	.white-bold {
+		color: white;
+		font-weight: bold;
+	}
+
 	.center {
 		display: flex;
 		justify-content: center;

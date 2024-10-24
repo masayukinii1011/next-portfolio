@@ -33,17 +33,17 @@ export const formSchema = z.object({
 	}),
 });
 
-const form = useForm<z.infer<typeof formSchema>>({
-	resolver: zodResolver(formSchema),
-	defaultValues: {
-		name: "",
-		email: "",
-		message: "",
-	},
-});
-
 export default function ContactForm() {
 	const { toast } = useToast();
+
+	const form = useForm<z.infer<typeof formSchema>>({
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			name: "",
+			email: "",
+			message: "",
+		},
+	});
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		const sendMessageApi = process.env.NEXT_PUBLIC_SEND_MESSEGE_API;
@@ -114,7 +114,7 @@ export default function ContactForm() {
 						<FormItem>
 							<FormLabel className="text-lg font-bold">Message</FormLabel>
 							<FormControl>
-								<Textarea className="bg-slate-100 min-h-60" {...field} />
+								<Textarea className="min-h-60 bg-slate-100" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>

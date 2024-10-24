@@ -10,10 +10,10 @@ export default async function Header() {
 	});
 
 	return (
-		<header className="flex items-center justify-between px-2 bg-background fixed w-full z-1 opacity-90">
+		<header className="flex items-center justify-between w-full px-2 bg-background opacity-90 fixed z-1">
 			<Link
 				href="/"
-				className="center text-2xl font-bold text-white px-2 h-14 hover:bg-hover"
+				className="center white-bold h-14 px-2 text-2xl hover:bg-hover"
 			>
 				<h1>msykn</h1>
 			</Link>

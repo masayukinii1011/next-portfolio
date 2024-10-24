@@ -23,7 +23,7 @@ export default function PostDetail({
 	body,
 }: Props) {
 	return (
-		<div className="bg-white rounded-lg shadow-lg px-8 pb-8 mx-4">
+		<div className="mx-4 px-8 pb-8 bg-white rounded-lg shadow-lg">
 			<PageTitle title={title} />
 			{category === "music" ? (
 				<MusicArticle />

@@ -7,8 +7,8 @@ export type Post = {
   publishDate: string;
   githubLink: string;
   demoLink: string;
-  image: Image;
   category: Category;
+  image: Image;
 };
 
 export type Category = {
@@ -31,8 +31,8 @@ function convertPost(
     publishDate: ensureString(entry.fields.publishDate),
     githubLink: ensureString(entry.fields.githubLink),
     demoLink: ensureString(entry.fields.demoLink),
-    image: ensureImage(entry.fields.image),
     category: ensureCategory(entry.fields.category),
+    image: ensureImage(entry.fields.image),
   };
 }
 
@@ -140,7 +140,7 @@ export async function getPostsByCategorySlug(
     });
     return res.items.map((item) => convertPost(item));
   } catch (error) {
-    console.error("Error fetching entries:", error);
+    console.error("Error fetching posts:", error);
     throw error;
   }
 }
@@ -153,7 +153,7 @@ export async function getPostBySlug(postSlug: string): Promise<Post> {
     });
     return convertPost(res.items[0]);
   } catch (error) {
-    console.error("Error fetching entry:", error);
+    console.error("Error fetching post:", error);
     throw error;
   }
 }

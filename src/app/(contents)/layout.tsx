@@ -5,10 +5,10 @@ export default function Layout({
 }>) {
 	return (
 		<>
-			<div className="content-layout bg-slate-50 max-w-screen-lg mx-auto pt-28 pb-14">
+			<div className="content-layout max-w-screen-lg mx-auto pt-28 pb-14 bg-slate-50">
 				{children}
 			</div>
-			<footer className="bg-background opacity-90 text-white w-full h-14 center">
+			<footer className="center h-14 w-full bg-background text-white opacity-90">
 				<div>(c) 2024 msykn</div>
 			</footer>
 		</>

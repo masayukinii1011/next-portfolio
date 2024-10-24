@@ -12,7 +12,7 @@ export default async function WorksPage() {
 			})),
 		)
 		.catch((error) => {
-			console.error("Failed to fetch entries:", error);
+			console.error("Failed to fetch posts:", error);
 			return [];
 		});
 

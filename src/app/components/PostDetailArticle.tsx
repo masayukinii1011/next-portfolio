@@ -37,7 +37,7 @@ export default function PostDetailArticle({
 							href={githubLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="border border-gray-200 hover:border-gray-300 rounded-md mx-1"
+							className="mx-1 rounded-md border border-gray-200 hover:border-gray-300"
 						>
 							<Image
 								src="/github_logo.png"
@@ -53,9 +53,9 @@ export default function PostDetailArticle({
 							href={demoLink}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="border border-gray-200 hover:border-gray-300 rounded-md"
+							className="mx-1 rounded-md border border-gray-200 hover:border-gray-300"
 						>
-							<span className="min-w-28 h-10 center font-bold">DEMO</span>
+							<span className="center h-10 min-w-28 font-bold">DEMO</span>
 						</a>
 					)}
 				</div>

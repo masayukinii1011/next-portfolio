@@ -9,16 +9,16 @@ export default function Home() {
 	const letters = "msykn's portfolio website".split("");
 
 	return (
-		<div className="h-screen center bg-background">
+		<div className="center h-screen bg-background">
 			<p
-				className={`${PlayFont.className} font-bold tracking-wide select-none cursor-pointer text-2xl sm:text-4xl md:text-5xl text-white`}
+				className={`${PlayFont.className} white-bold tracking-wide select-none cursor-pointer text-2xl sm:text-4xl md:text-5xl`}
 			>
 				{letters.map((letter, i) => {
 					const key = letter + i;
 					return (
 						<span
 							key={key}
-							className="home-letter inline-block"
+							className="inline-blockhome-letter"
 							style={{ animationDelay: `${i * 100}ms` }}
 						>
 							{letter}

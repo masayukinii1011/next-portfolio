@@ -19,7 +19,7 @@ export default function PcMenu({
 						<NavigationMenuItem key={category.slug}>
 							<NavigationMenuLink
 								href={`/${category.slug}`}
-								className="center px-2 h-14 font-bold text-white hover:bg-hover"
+								className="center white-bold h-14 px-2 hover:bg-hover"
 							>
 								{category.title}
 							</NavigationMenuLink>
