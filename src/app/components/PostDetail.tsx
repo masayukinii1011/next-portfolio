@@ -1,7 +1,7 @@
+import ContactForm from "@/app/components/ContactForm";
+import MusicArticle from "@/app/components/MusicArticle";
 import PageTitle from "@/app/components/PageTitle";
-import PostDetailContent from "@/app/components/PostDetailContent";
-import MusicContent from "@/app/components/MusicContent";
-import ContactContent from "@/app/components/ContactContent";
+import PostDetailArticle from "@/app/components/PostDetailArticle";
 
 type Props = {
 	title: string;
@@ -13,7 +13,7 @@ type Props = {
 	body: string;
 };
 
-export default async function PostDetail({
+export default function PostDetail({
 	title,
 	category,
 	imageUrl,
@@ -26,11 +26,11 @@ export default async function PostDetail({
 		<div className="bg-white rounded-lg shadow-lg px-8 pb-8 mx-4">
 			<PageTitle title={title} />
 			{category === "music" ? (
-				<MusicContent />
+				<MusicArticle />
 			) : category === "contact" ? (
-				<ContactContent />
+				<ContactForm />
 			) : (
-				<PostDetailContent
+				<PostDetailArticle
 					imageUrl={imageUrl}
 					imageTitle={imageTitle}
 					githubLink={githubLink}

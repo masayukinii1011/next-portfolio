@@ -1,7 +1,7 @@
+import PageTitle from "@/app/components/PageTitle";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import PageTitle from "@/app/components/PageTitle";
 
 type Props = {
 	category: {
@@ -16,7 +16,7 @@ type Props = {
 	}[];
 };
 
-export default async function PostList({ category, posts }: Props) {
+export default function PostList({ category, posts }: Props) {
 	return (
 		<div className="mt-minus-10">
 			<PageTitle title={category.title} />

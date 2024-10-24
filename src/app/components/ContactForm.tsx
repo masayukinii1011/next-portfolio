@@ -1,20 +1,20 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
+	Form,
+	FormControl,
 	FormField,
 	FormItem,
 	FormLabel,
-	FormControl,
 	FormMessage,
-	Form,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 export const formSchema = z.object({
 	name: z
@@ -33,17 +33,17 @@ export const formSchema = z.object({
 	}),
 });
 
-export default function ContactContent() {
-	const { toast } = useToast();
+const form = useForm<z.infer<typeof formSchema>>({
+	resolver: zodResolver(formSchema),
+	defaultValues: {
+		name: "",
+		email: "",
+		message: "",
+	},
+});
 
-	const form = useForm<z.infer<typeof formSchema>>({
-		resolver: zodResolver(formSchema),
-		defaultValues: {
-			name: "",
-			email: "",
-			message: "",
-		},
-	});
+export default function ContactForm() {
+	const { toast } = useToast();
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		const sendMessageApi = process.env.NEXT_PUBLIC_SEND_MESSEGE_API;

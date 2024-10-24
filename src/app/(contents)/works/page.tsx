@@ -1,7 +1,7 @@
 import PostList from "@/app/components/PostList";
 import { getPostsByCategorySlug } from "@/app/contentful";
 
-export default async function Works() {
+export default async function WorksPage() {
 	const posts = await getPostsByCategorySlug("works")
 		.then((posts) =>
 			posts.map((post) => ({

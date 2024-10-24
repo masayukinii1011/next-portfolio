@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { getCategories } from "@/app/contentful";
-import PcMenu from "@/app/components/PcMenu";
 import MobileMenu from "@/app/components/MobileMenu";
+import PcMenu from "@/app/components/PcMenu";
+import { getCategories } from "@/app/contentful";
+import Link from "next/link";
 
 export default async function Header() {
 	const categories = await getCategories().catch((error) => {

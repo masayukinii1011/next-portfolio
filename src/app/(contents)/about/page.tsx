@@ -1,7 +1,7 @@
 import PostDetail from "@/app/components/PostDetail";
 import { getPostBySlug } from "@/app/contentful";
 
-export default async function About() {
+export default async function AboutPage() {
 	const post = await getPostBySlug("about").catch((error) => {
 		console.error("Failed to fetch post:", error);
 		return null;

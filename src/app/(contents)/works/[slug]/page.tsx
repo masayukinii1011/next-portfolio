@@ -1,7 +1,9 @@
 import PostDetail from "@/app/components/PostDetail";
 import { getPostBySlug } from "@/app/contentful";
 
-export default async function Page(props: { params: { slug: string } }) {
+export default async function WorksSlugPage(props: {
+	params: { slug: string };
+}) {
 	const { slug } = await props.params;
 	const post = await getPostBySlug(slug).catch((error) => {
 		console.error("Failed to fetch post:", error);

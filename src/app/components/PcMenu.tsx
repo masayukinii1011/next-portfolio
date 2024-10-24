@@ -1,12 +1,12 @@
+import type { Category } from "@/app/contentful";
 import {
 	NavigationMenu,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import type { Category } from "@/app/contentful";
 
-export default async function PcMenu({
+export default function PcMenu({
 	categories,
 }: {
 	categories: Category[];

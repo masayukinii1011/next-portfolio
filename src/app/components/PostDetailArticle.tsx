@@ -1,6 +1,6 @@
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-import Image from "next/image";
 
 type Props = {
 	imageUrl: string;
@@ -10,7 +10,7 @@ type Props = {
 	body: string;
 };
 
-export default async function PostDetailContent({
+export default function PostDetailArticle({
 	imageUrl,
 	imageTitle,
 	githubLink,

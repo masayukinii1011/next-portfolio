@@ -1,17 +1,17 @@
 "use client";
 
-import Link from "next/link";
+import type { Category } from "@/app/contentful";
 import {
 	Sheet,
 	SheetContent,
-	SheetTitle,
 	SheetDescription,
-	SheetTrigger,
 	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
 } from "@/components/ui/sheet";
-import type { Category } from "@/app/contentful";
-import { useState, useEffect } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function MobileMenu({
 	categories,
