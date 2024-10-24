@@ -33,7 +33,9 @@ export const formSchema = z.object({
 	}),
 });
 
-export default function ContactForm() {
+export default function ContactForm({
+	sendMessageApi,
+}: { sendMessageApi: string }) {
 	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +48,6 @@ export default function ContactForm() {
 	});
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
-		const sendMessageApi = process.env.NEXT_PUBLIC_SEND_MESSEGE_API;
 		if (!sendMessageApi) {
 			toast({
 				description: "メッセージ送信APIが定義されていません。",
