@@ -5,8 +5,8 @@ export type Post = {
   title: string;
   body: string;
   publishDate: string;
-  githubLink: string;
-  demoLink: string;
+  githubUrl: string;
+  demoUrl: string;
   category: Category;
   image: Image;
 };
@@ -29,8 +29,8 @@ function convertPost(
     title: ensureString(entry.fields.title),
     body: ensureString(entry.fields.body),
     publishDate: ensureString(entry.fields.publishDate),
-    githubLink: ensureString(entry.fields.githubLink),
-    demoLink: ensureString(entry.fields.demoLink),
+    githubUrl: ensureString(entry.fields.githubUrl),
+    demoUrl: ensureString(entry.fields.demoUrl),
     category: ensureCategory(entry.fields.category),
     image: ensureImage(entry.fields.image),
   };
@@ -111,16 +111,6 @@ export async function getCategories(): Promise<Category[]> {
         slug: item.fields.slug as string,
       };
     });
-    categories.push(
-      {
-        title: "Music",
-        slug: "music",
-      },
-      {
-        title: "Contact",
-        slug: "contact",
-      }
-    );
     return categories;
   } catch (error) {
     console.error("Error fetching categories:", error);

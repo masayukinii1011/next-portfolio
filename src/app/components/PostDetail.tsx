@@ -9,8 +9,8 @@ type Props = {
 	category: string;
 	imageUrl: string;
 	imageTitle: string;
-	githubLink: string;
-	demoLink: string;
+	githubUrl: string;
+	demoUrl: string;
 	body: string;
 };
 
@@ -19,8 +19,8 @@ export default function PostDetail({
 	category,
 	imageUrl,
 	imageTitle,
-	githubLink,
-	demoLink,
+	githubUrl,
+	demoUrl,
 	body,
 }: Props) {
 	return (
@@ -34,8 +34,8 @@ export default function PostDetail({
 				<PostDetailArticle
 					imageUrl={imageUrl}
 					imageTitle={imageTitle}
-					githubLink={githubLink}
-					demoLink={demoLink}
+					githubUrl={githubUrl}
+					demoUrl={demoUrl}
 					body={body}
 				/>
 			)}

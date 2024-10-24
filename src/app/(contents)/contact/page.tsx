@@ -7,8 +7,8 @@ export default function ContactPage() {
 			category={"contact"}
 			imageUrl={""}
 			imageTitle={""}
-			githubLink={""}
-			demoLink={""}
+			githubUrl={""}
+			demoUrl={""}
 			body={""}
 		/>
 	);

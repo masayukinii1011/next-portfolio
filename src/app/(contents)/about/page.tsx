@@ -17,8 +17,8 @@ export default async function AboutPage() {
 			category={post.category.slug}
 			imageUrl={post.image.url}
 			imageTitle={post.image.title}
-			githubLink={post.githubLink}
-			demoLink={post.demoLink}
+			githubUrl={post.githubUrl}
+			demoUrl={post.demoUrl}
 			body={post.body}
 		/>
 	);

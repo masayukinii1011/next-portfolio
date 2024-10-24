@@ -7,8 +7,8 @@ export default function MusicPage() {
 			category={"music"}
 			imageUrl={""}
 			imageTitle={""}
-			githubLink={""}
-			demoLink={""}
+			githubUrl={""}
+			demoUrl={""}
 			body={""}
 		/>
 	);

@@ -5,16 +5,16 @@ import remarkBreaks from "remark-breaks";
 type Props = {
 	imageUrl: string;
 	imageTitle: string;
-	githubLink: string;
-	demoLink: string;
+	githubUrl: string;
+	demoUrl: string;
 	body: string;
 };
 
 export default function PostDetailArticle({
 	imageUrl,
 	imageTitle,
-	githubLink,
-	demoLink,
+	githubUrl,
+	demoUrl,
 	body,
 }: Props) {
 	return (
@@ -30,11 +30,11 @@ export default function PostDetailArticle({
 					/>
 				</div>
 			)}
-			{(githubLink || demoLink) && (
+			{(githubUrl || demoUrl) && (
 				<div className="center mb-8">
-					{githubLink && (
+					{githubUrl && (
 						<a
-							href={githubLink}
+							href={githubUrl}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="mx-1 border-gray hover:border-gray-300"
@@ -48,9 +48,9 @@ export default function PostDetailArticle({
 							/>
 						</a>
 					)}
-					{demoLink && (
+					{demoUrl && (
 						<a
-							href={demoLink}
+							href={demoUrl}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="mx-1 border-gray hover:border-gray-300"
