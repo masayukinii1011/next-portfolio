@@ -9,7 +9,7 @@ export default function Home() {
 	const letters = "msykn's portfolio website".split("");
 
 	return (
-		<div className="h-full center bg-blue-500">
+		<div className="h-screen center bg-background">
 			<p
 				className={`${PlayFont.className} font-bold tracking-wide select-none cursor-pointer text-2xl sm:text-4xl md:text-5xl text-white`}
 			>

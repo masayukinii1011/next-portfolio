@@ -124,7 +124,7 @@ export default function ContactContent() {
 					type="submit"
 					disabled={form.formState.isSubmitting}
 					size="lg"
-					className="text-white bg-blue-500 hover:bg-blue-600"
+					className="text-white bg-background hover:bg-blue-600"
 				>
 					送信
 				</Button>

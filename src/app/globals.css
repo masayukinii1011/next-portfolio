@@ -37,11 +37,14 @@
 	body {
 		@apply text-foreground;
 		font-family: Arial, Helvetica, sans-serif;
-		word-break: break-all;
 	}
 }
 
 @layer components {
+	.content-layout {
+		min-height: calc(100vh - 3.5rem);
+	}
+
 	.home-letter {
 		min-width: 0.6rem;
 		transition: 0.2s ease-out;
