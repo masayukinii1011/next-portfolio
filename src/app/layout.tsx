@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/app/globals.css";
 import Header from "@/app/components/Header";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -30,10 +31,11 @@ export default function RootLayout({
 				<link rel="icon" href="/favicon.ico" sizes="any" />
 			</head>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen break-all`}
 			>
 				<Header />
 				{children}
+				<Toaster />
 			</body>
 		</html>
 	);

@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
 
 export const formSchema = z.object({
 	name: z
@@ -33,6 +34,8 @@ export const formSchema = z.object({
 });
 
 export default function ContactContent() {
+	const { toast } = useToast();
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -45,23 +48,33 @@ export default function ContactContent() {
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		const sendMessageApi = process.env.NEXT_PUBLIC_SEND_MESSEGE_API;
 		if (!sendMessageApi) {
-			throw new Error("SEND_MESSEGE_API is not defined");
+			toast({
+				description: "メッセージ送信APIが定義されていません。",
+				variant: "destructive",
+			});
+			return;
 		}
 
 		try {
 			const res = await fetch(sendMessageApi, {
 				method: "POST",
 				body: JSON.stringify(values),
-				headers: {
-					"Content-Type": "application/json",
-				},
+				headers: { "Content-Type": "application/json" },
 			});
 
 			if (!res.ok) {
-				throw new Error(`サーバーエラー: ${res.status}`);
+				throw new Error(`エラー: ${res.status}`);
 			}
+
+			toast({
+				description: "メッセージが送信されました。",
+			});
 		} catch (error) {
-			console.error("メッセージ送信中にエラーが発生しました:", error);
+			console.error(error);
+			toast({
+				description: "メッセージの送信に失敗しました。もう一度お試しください。",
+				variant: "destructive",
+			});
 		}
 	}
 
