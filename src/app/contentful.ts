@@ -1,72 +1,5 @@
 import * as contentful from "contentful";
 
-const client = contentful.createClient({
-  space: process.env.CTF_SPACE_ID || "",
-  accessToken: process.env.CTF_CDA_ACCESS_TOKEN || "",
-});
-
-export type Category = {
-  slug: string;
-  title: string;
-};
-
-export async function getCategories(): Promise<Category[]> {
-  try {
-    const res = await client.getEntries({
-      content_type: "category",
-      order: ["fields.id"],
-    });
-    const categories = res.items.map((item) => {
-      return {
-        title: item.fields.title as string,
-        slug: item.fields.slug as string,
-      };
-    });
-    categories.push(
-      {
-        title: "Music",
-        slug: "music",
-      },
-      {
-        title: "Contact",
-        slug: "contact",
-      }
-    );
-    return categories;
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    throw error;
-  }
-}
-
-export async function getPostBySlug(slug: string): Promise<Post> {
-  try {
-    const res = await client.getEntries({
-      content_type: process.env.CTF_BLOG_POST_TYPE_ID || "",
-      "fields.slug": slug,
-    });
-    return convertPost(res.items[0]);
-  } catch (error) {
-    console.error("Error fetching entry:", error);
-    throw error;
-  }
-}
-
-export async function getPostsByCategory(category: string): Promise<Post[]> {
-  try {
-    const res = await client.getEntries({
-      content_type: process.env.CTF_BLOG_POST_TYPE_ID || "",
-      order: ["-fields.publishDate"],
-      "fields.category.fields.slug": category,
-      "fields.category.sys.contentType.sys.id": "category",
-    });
-    return res.items.map((item) => convertPost(item));
-  } catch (error) {
-    console.error("Error fetching entries:", error);
-    throw error;
-  }
-}
-
 export type Post = {
   slug: string;
   title: string;
@@ -76,6 +9,11 @@ export type Post = {
   demoLink: string;
   image: Image;
   category: Category;
+};
+
+export type Category = {
+  slug: string;
+  title: string;
 };
 
 export type Image = {
@@ -96,10 +34,6 @@ function convertPost(
     image: ensureImage(entry.fields.image),
     category: ensureCategory(entry.fields.category),
   };
-}
-
-function ensureString(value: unknown): string {
-  return typeof value === "string" ? value : "";
 }
 
 function ensureCategory(value: unknown): Category {
@@ -154,4 +88,72 @@ function ensureImage(value: unknown): Image {
   }
 
   return image;
+}
+
+function ensureString(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
+const client = contentful.createClient({
+  space: process.env.CTF_SPACE_ID || "",
+  accessToken: process.env.CTF_CDA_ACCESS_TOKEN || "",
+});
+
+export async function getCategories(): Promise<Category[]> {
+  try {
+    const res = await client.getEntries({
+      content_type: "category",
+      order: ["fields.id"],
+    });
+    const categories = res.items.map((item) => {
+      return {
+        title: item.fields.title as string,
+        slug: item.fields.slug as string,
+      };
+    });
+    categories.push(
+      {
+        title: "Music",
+        slug: "music",
+      },
+      {
+        title: "Contact",
+        slug: "contact",
+      }
+    );
+    return categories;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+}
+
+export async function getPostsByCategorySlug(
+  categorySlug: string
+): Promise<Post[]> {
+  try {
+    const res = await client.getEntries({
+      content_type: process.env.CTF_BLOG_POST_TYPE_ID || "",
+      order: ["-fields.publishDate"],
+      "fields.category.fields.slug": categorySlug,
+      "fields.category.sys.contentType.sys.id": "category",
+    });
+    return res.items.map((item) => convertPost(item));
+  } catch (error) {
+    console.error("Error fetching entries:", error);
+    throw error;
+  }
+}
+
+export async function getPostBySlug(postSlug: string): Promise<Post> {
+  try {
+    const res = await client.getEntries({
+      content_type: process.env.CTF_BLOG_POST_TYPE_ID || "",
+      "fields.slug": postSlug,
+    });
+    return convertPost(res.items[0]);
+  } catch (error) {
+    console.error("Error fetching entry:", error);
+    throw error;
+  }
 }

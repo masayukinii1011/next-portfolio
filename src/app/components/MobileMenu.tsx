@@ -9,7 +9,7 @@ import {
 	SheetTrigger,
 	SheetHeader,
 } from "@/components/ui/sheet";
-import type { Category } from "@/app/repository/contentful";
+import type { Category } from "@/app/contentful";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 

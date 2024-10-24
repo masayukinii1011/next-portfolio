@@ -1,5 +1,5 @@
 import PostDetail from "@/app/components/PostDetail";
-import { getPostBySlug } from "@/app/repository/contentful";
+import { getPostBySlug } from "@/app/contentful";
 
 export default async function Page(props: { params: { slug: string } }) {
 	const { slug } = await props.params;

@@ -1,5 +1,5 @@
 import PostDetail from "@/app/components/PostDetail";
-import { getPostBySlug } from "@/app/repository/contentful";
+import { getPostBySlug } from "@/app/contentful";
 
 export default async function About() {
 	const post = await getPostBySlug("about").catch((error) => {

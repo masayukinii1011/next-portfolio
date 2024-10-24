@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getCategories } from "@/app/repository/contentful";
+import { getCategories } from "@/app/contentful";
 import PcMenu from "@/app/components/PcMenu";
 import MobileMenu from "@/app/components/MobileMenu";
 

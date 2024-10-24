@@ -1,8 +1,8 @@
 import PostList from "@/app/components/PostList";
-import { getPostsByCategory } from "@/app/repository/contentful";
+import { getPostsByCategorySlug } from "@/app/contentful";
 
 export default async function Works() {
-	const posts = await getPostsByCategory("works")
+	const posts = await getPostsByCategorySlug("works")
 		.then((posts) =>
 			posts.map((post) => ({
 				title: post.title,

@@ -1,7 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import Image from "next/image";
-import githubLogo from "@/app/github_logo.png";
 
 type Props = {
 	imageUrl: string;
@@ -41,7 +40,7 @@ export default async function PostDetailContent({
 							className="border border-gray-200 hover:border-gray-300 rounded-md mx-1"
 						>
 							<Image
-								src={githubLogo}
+								src="/github_logo.png"
 								alt="github"
 								width={120}
 								height={40}
