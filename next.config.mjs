@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: ['images.ctfassets.net'],
-  },
+	output: "export",
+	images: {
+		domains: ["images.ctfassets.net"],
+		unoptimized: true,
+	},
 };
 
 export default nextConfig;

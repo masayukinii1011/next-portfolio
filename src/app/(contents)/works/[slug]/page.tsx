@@ -1,5 +1,5 @@
 import PostDetail from "@/app/components/PostDetail";
-import { getPostBySlug } from "@/app/contentful";
+import { getPostBySlug, getPostSlugsByCategorySlug } from "@/app/contentful";
 
 type Props = {
 	params: Promise<{ slug: string }>;
@@ -27,4 +27,12 @@ export default async function WorksSlugPage({ params }: Props) {
 			body={post.body}
 		/>
 	);
+}
+
+export async function generateStaticParams() {
+	const slugs = await getPostSlugsByCategorySlug("works").catch((error) => {
+		console.error("Failed to fetch post slugs:", error);
+		return [];
+	});
+	return slugs.map((slug) => ({ slug }));
 }

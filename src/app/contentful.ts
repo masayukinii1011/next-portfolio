@@ -99,13 +99,15 @@ const client = contentful.createClient({
   accessToken: process.env.CTF_CDA_ACCESS_TOKEN || "",
 });
 
+const contentType = process.env.CTF_BLOG_POST_TYPE_ID || "";
+
 export async function getCategories(): Promise<Category[]> {
   try {
-    const res = await client.getEntries({
+    const entries = await client.getEntries({
       content_type: "category",
       order: ["fields.id"],
     });
-    const categories = res.items.map((item) => {
+    const categories = entries.items.map((item) => {
       return {
         title: item.fields.title as string,
         slug: item.fields.slug as string,
@@ -122,13 +124,13 @@ export async function getPostsByCategorySlug(
   categorySlug: string
 ): Promise<Post[]> {
   try {
-    const res = await client.getEntries({
-      content_type: process.env.CTF_BLOG_POST_TYPE_ID || "",
+    const entries = await client.getEntries({
+      content_type: contentType,
       order: ["-fields.publishDate"],
       "fields.category.fields.slug": categorySlug,
       "fields.category.sys.contentType.sys.id": "category",
     });
-    return res.items.map((item) => convertPost(item));
+    return entries.items.map((item) => convertPost(item));
   } catch (error) {
     console.error("Error fetching posts:", error);
     throw error;
@@ -137,13 +139,31 @@ export async function getPostsByCategorySlug(
 
 export async function getPostBySlug(postSlug: string): Promise<Post> {
   try {
-    const res = await client.getEntries({
-      content_type: process.env.CTF_BLOG_POST_TYPE_ID || "",
+    const entries = await client.getEntries({
+      content_type: contentType,
+      limit: 1,
       "fields.slug": postSlug,
     });
-    return convertPost(res.items[0]);
+    return convertPost(entries.items[0]);
   } catch (error) {
     console.error("Error fetching post:", error);
+    throw error;
+  }
+}
+
+export async function getPostSlugsByCategorySlug(
+  categorySlug: string
+): Promise<string[]> {
+  try {
+    const entries = await client.getEntries({
+      content_type: contentType,
+      select: ["fields.slug"],
+      "fields.category.fields.slug": categorySlug,
+      "fields.category.sys.contentType.sys.id": "category",
+    });
+    return entries.items.map((item) => ensureString(item.fields.slug));
+  } catch (error) {
+    console.error("Error fetching post slugs:", error);
     throw error;
   }
 }
