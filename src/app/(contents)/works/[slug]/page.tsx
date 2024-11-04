@@ -2,7 +2,7 @@ import PostDetail from "@/app/components/PostDetail";
 import { getPostBySlug } from "@/app/contentful";
 
 type Props = {
-	params: { slug: string };
+	params: Promise<{ slug: string }>;
 };
 
 export default async function WorksSlugPage({ params }: Props) {
