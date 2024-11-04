@@ -42,9 +42,6 @@ jobs:
       - name: Build Next.js application
         run: npm run build
 
-      - name: Export Next.js application
-        run: npm run export
-
       - name: Sync s3
         uses: jakejarvis/s3-sync-action@master
         with:
