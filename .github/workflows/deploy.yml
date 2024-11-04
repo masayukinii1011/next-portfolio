@@ -27,7 +27,7 @@ jobs:
           echo "SEND_MESSAGE_API=${{ secrets.SEND_MESSAGE_API }}" >> .env.production
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
         run: npm run build
