@@ -19,20 +19,30 @@ jobs:
           node-version: '22.x'
           cache: 'npm'
 
-      - name: Create environment variables file
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create .env.production
         run: |
           echo "CTF_SPACE_ID=${{ secrets.CTF_SPACE_ID }}" >> .env.production
           echo "CTF_BLOG_POST_TYPE_ID=${{ secrets.CTF_BLOG_POST_TYPE_ID }}" >> .env.production
           echo "CTF_CDA_ACCESS_TOKEN=${{ secrets.CTF_CDA_ACCESS_TOKEN }}" >> .env.production
           echo "SEND_MESSAGE_API=${{ secrets.SEND_MESSAGE_API }}" >> .env.production
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
+      - name: Build Next.js application
         run: npm run build
 
-      - name: Generate
+      - name: Export Next.js application
         run: npm run export
 
       - name: Sync s3
