@@ -1,1 +1,1 @@
-export const sendMessageApi = process.env.SEND_MESSEGE_API ?? "";
+export const sendMessageApi = process.env.SEND_MESSAGE_API ?? "";
