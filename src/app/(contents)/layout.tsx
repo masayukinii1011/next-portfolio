@@ -5,7 +5,7 @@ export default function Layout({
 }>) {
 	return (
 		<>
-			<div className="content-layout max-w-screen-lg mx-auto pt-28 pb-14 bg-slate-50">
+			<div className="content-layout max-w-screen-lg mx-auto pt-28 pb-14">
 				{children}
 			</div>
 			<footer className="center h-14 w-full bg-background text-white opacity-90">

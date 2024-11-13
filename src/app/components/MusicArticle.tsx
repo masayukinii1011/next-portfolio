@@ -8,7 +8,7 @@ export default function MusicArticle() {
 			</p>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1092547429&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
 				title="SoundCloud Playlist 1"
 				width="640"
@@ -16,7 +16,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1486647112&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
 				title="SoundCloud Playlist 2"
 				width="640"
@@ -24,7 +24,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				allow="encrypted-media *; fullscreen *"
 				sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
 				src="https://embed.music.apple.com/jp/album/matters-of-the-affection/1536910723"
@@ -34,7 +34,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				allow="encrypted-media *; fullscreen *"
 				sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
 				src="https://embed.music.apple.com/jp/album/underneath-the-city-of-the-bloom/1334493546"
@@ -44,7 +44,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/oDQt5m3BVD8"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -54,7 +54,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/l9yCRuFNKIY"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -64,7 +64,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/2B2w8jNjoF8"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -74,7 +74,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/d1UjjotarFQ"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -84,7 +84,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/f7AZRGglSQw"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -94,7 +94,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/EYCjx8QpWJE"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -104,7 +104,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/gUN3lEoVzr8"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
@@ -114,7 +114,7 @@ export default function MusicArticle() {
 			/>
 
 			<iframe
-				className="mb-8"
+				className="mb-8 w-full"
 				src="https://www.youtube.com/embed/c54cX6OK050"
 				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 				allowFullScreen
