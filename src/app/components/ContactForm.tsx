@@ -1,5 +1,6 @@
 "use client";
 
+import { sendMessage } from "@/app/sendMessage";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -33,9 +34,7 @@ export const formSchema = z.object({
 	}),
 });
 
-export default function ContactForm({
-	sendMessageApi,
-}: { sendMessageApi: string }) {
+export default function ContactForm() {
 	const { toast } = useToast();
 
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -48,35 +47,11 @@ export default function ContactForm({
 	});
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
-		if (!sendMessageApi) {
-			toast({
-				description: "メッセージ送信APIが定義されていません。",
-				variant: "destructive",
-			});
-			return;
-		}
-
-		try {
-			const res = await fetch(sendMessageApi, {
-				method: "POST",
-				body: JSON.stringify(values),
-				headers: { "Content-Type": "application/json" },
-			});
-
-			if (!res.ok) {
-				throw new Error(`エラー: ${res.status}`);
-			}
-
-			toast({
-				description: "メッセージが送信されました。",
-			});
-		} catch (error) {
-			console.error(error);
-			toast({
-				description: "メッセージの送信に失敗しました。もう一度お試しください。",
-				variant: "destructive",
-			});
-		}
+		const { description, variant } = await sendMessage(values);
+		toast({
+			description,
+			variant,
+		});
 	}
 
 	return (

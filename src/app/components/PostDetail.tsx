@@ -2,7 +2,6 @@ import ContactForm from "@/app/components/ContactForm";
 import MusicArticle from "@/app/components/MusicArticle";
 import PageTitle from "@/app/components/PageTitle";
 import PostDetailArticle from "@/app/components/PostDetailArticle";
-import { sendMessageApi } from "@/app/sendMessage";
 
 type Props = {
 	title: string;
@@ -27,7 +26,7 @@ export default function PostDetail({
 		<div className="mx-4 px-8 pb-8 bg-white rounded-lg shadow-lg">
 			<PageTitle title={title} />
 			{category === "contact" ? (
-				<ContactForm sendMessageApi={sendMessageApi} />
+				<ContactForm />
 			) : category === "music" ? (
 				<MusicArticle />
 			) : (
