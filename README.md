@@ -95,7 +95,7 @@ RSC 対応・zero runtime・カスタマイズ性を重視。コンポーネン�
 ### AWS（Vercel ではなく）
 更新頻度が低く ISR のメリットが薄いため、Contentful Webhook 連携の CI/CD で十分と判断。旧構成を踏襲しています。
 
-### Contentful REST（GraphQL ではない）
+### Contentful REST（GraphQL ではなく）
 GraphQL API も検討しましたが、記事数が少なく SSG ビルド時のみ取得する構成のため、REST + `contentful` SDK の方がシンプルで十分と判断しました。CMS 構成が複雑化した場合は GraphQL への移行を検討します。
 
 ## 実装上のポイント
@@ -104,4 +104,4 @@ GraphQL API も検討しましたが、記事数が少なく SSG ビルド時の
 - **コンタクトフォーム** — SSG では Server Actions が使えないため Client 側から API へ POST（[`ContactForm.tsx`](src/app/components/ContactForm.tsx)）
 - **SEO** — ページ別 metadata / sitemap / robots / 404
 - **View Transitions** — React 19.2 のページ遷移アニメーション（方向付きスライド + Works サムネ morph）
-- **Contact API** — フロントに honeypot を実装。Lambda 側ではレート制限・WAF・Turnstile 等の追加を推奨
+- **Contact API** — フロントに honeypot を実装
