@@ -1,139 +1,70 @@
-export default function MusicArticle() {
+"use client";
+
+import type { MusicEmbed } from "@/data/music-embeds";
+import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkBreaks from "remark-breaks";
+
+type Props = {
+	body?: string;
+	embeds: MusicEmbed[];
+};
+
+function MusicIframe({ embed }: { embed: MusicEmbed }) {
+	const isYouTube = embed.src.includes("youtube.com");
+
+	return (
+		<iframe
+			className="mb-8 max-w-full"
+			src={embed.src}
+			title={embed.title}
+			loading="lazy"
+			width="640"
+			height="360"
+			{...(embed.allow ? { allow: embed.allow } : {})}
+			{...(embed.sandbox ? { sandbox: embed.sandbox } : {})}
+			{...(isYouTube
+				? {
+						allow:
+							"accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+						allowFullScreen: true,
+					}
+				: {})}
+		/>
+	);
+}
+
+export default function MusicArticle({ body, embeds }: Props) {
+	const [showAll, setShowAll] = useState(false);
+	const visibleEmbeds = showAll ? embeds : embeds.slice(0, 3);
+
 	return (
 		<div className="center flex-col">
-			<p className="mb-8">
-				音楽活動も行なっています。
-				<br />
-				視聴の際は広告ブロックを無効にして下さい。
-			</p>
+			{body ? (
+				<ReactMarkdown remarkPlugins={[remarkBreaks]} className="markdown mb-8">
+					{body}
+				</ReactMarkdown>
+			) : (
+				<p className="mb-8">
+					音楽活動も行なっています。
+					<br />
+					視聴の際は広告ブロックを無効にして下さい。
+				</p>
+			)}
 
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1092547429&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-				title="SoundCloud Playlist 1"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
+			{visibleEmbeds.map((embed) => (
+				<MusicIframe key={embed.src} embed={embed} />
+			))}
 
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1486647112&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"
-				title="SoundCloud Playlist 2"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				allow="encrypted-media *; fullscreen *"
-				sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-				src="https://embed.music.apple.com/jp/album/matters-of-the-affection/1536910723"
-				title="Apple Music Album 1"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				allow="encrypted-media *; fullscreen *"
-				sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-				src="https://embed.music.apple.com/jp/album/underneath-the-city-of-the-bloom/1334493546"
-				title="Apple Music Album 2"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/oDQt5m3BVD8"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 1"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/l9yCRuFNKIY"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 2"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/2B2w8jNjoF8"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 3"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/d1UjjotarFQ"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 4"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/f7AZRGglSQw"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 5"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/EYCjx8QpWJE"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 6"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/gUN3lEoVzr8"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 7"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
-
-			<iframe
-				className="mb-8 max-w-full"
-				src="https://www.youtube.com/embed/c54cX6OK050"
-				allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-				allowFullScreen
-				title="YouTube Video 8"
-				loading="lazy"
-				width="640"
-				height="360"
-			/>
+			{embeds.length > 3 && (
+				<button
+					type="button"
+					onClick={() => setShowAll((prev) => !prev)}
+					className="mb-8 px-4 py-2 text-sm font-bold border border-gray rounded-md hover:bg-slate-50"
+				>
+					{showAll ? "一部のみ表示" : `さらに ${embeds.length - 3} 件を表示`}
+				</button>
+			)}
 		</div>
 	);
 }
