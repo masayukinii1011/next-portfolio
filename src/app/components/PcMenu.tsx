@@ -5,6 +5,7 @@ import {
 	NavigationMenuLink,
 	NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
 export default function PcMenu({
 	categories,
@@ -16,11 +17,14 @@ export default function PcMenu({
 			<NavigationMenuList>
 				{categories.map((category) => (
 					<NavigationMenuItem key={category.slug}>
-						<NavigationMenuLink
-							href={`/${category.slug}`}
-							className="center white-bold h-14 px-2 hover:bg-hover"
-						>
-							{category.title}
+						<NavigationMenuLink asChild>
+							<Link
+								href={`/${category.slug}`}
+								transitionTypes={["nav-forward"]}
+								className="center white-bold h-14 px-2 hover:bg-hover"
+							>
+								{category.title}
+							</Link>
 						</NavigationMenuLink>
 					</NavigationMenuItem>
 				))}

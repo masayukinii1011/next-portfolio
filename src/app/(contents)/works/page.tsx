@@ -1,4 +1,5 @@
 import PostList from "@/app/components/PostList";
+import RouteTransition from "@/app/components/RouteTransition";
 import { getPostsByCategorySlug } from "@/app/contentful";
 import { createPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
@@ -27,6 +28,8 @@ export default async function WorksPage() {
 		});
 
 	return (
-		<PostList category={{ title: "WORKS", slug: "works" }} posts={posts} />
+		<RouteTransition>
+			<PostList category={{ title: "WORKS", slug: "works" }} posts={posts} />
+		</RouteTransition>
 	);
 }

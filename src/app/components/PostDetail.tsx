@@ -13,6 +13,7 @@ const GITHUB_URL = "https://github.com/masayukinii1011";
 type Props = {
 	title: string;
 	category: string;
+	slug?: string;
 	imageUrl: string;
 	imageTitle: string;
 	githubUrl: string;
@@ -24,6 +25,7 @@ type Props = {
 export default function PostDetail({
 	title,
 	category,
+	slug,
 	imageUrl,
 	imageTitle,
 	githubUrl,
@@ -69,6 +71,7 @@ export default function PostDetail({
 				<MusicArticle body={body} embeds={musicEmbeds} />
 			) : (
 				<PostDetailArticle
+					slug={slug}
 					imageUrl={imageUrl}
 					imageTitle={imageTitle}
 					githubUrl={githubUrl}

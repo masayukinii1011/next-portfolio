@@ -1,8 +1,10 @@
+import WorkImageMorph from "@/app/components/WorkImageMorph";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 
 type Props = {
+	slug?: string;
 	imageUrl: string;
 	imageTitle: string;
 	githubUrl: string;
@@ -11,6 +13,7 @@ type Props = {
 };
 
 export default function PostDetailArticle({
+	slug,
 	imageUrl,
 	imageTitle,
 	githubUrl,
@@ -21,14 +24,26 @@ export default function PostDetailArticle({
 		<>
 			{imageUrl && (
 				<div className="center mb-8">
-					<Image
-						src={imageUrl}
-						alt={imageTitle}
-						width={640}
-						height={360}
-						sizes="(max-width: 768px) 100vw, 640px"
-						className="border-gray"
-					/>
+					{slug ? (
+						<WorkImageMorph
+							slug={slug}
+							src={imageUrl}
+							alt={imageTitle}
+							width={640}
+							height={360}
+							sizes="(max-width: 768px) 100vw, 640px"
+							className="border-gray"
+						/>
+					) : (
+						<Image
+							src={imageUrl}
+							alt={imageTitle}
+							width={640}
+							height={360}
+							sizes="(max-width: 768px) 100vw, 640px"
+							className="border-gray"
+						/>
+					)}
 				</div>
 			)}
 			{(githubUrl || demoUrl) && (

@@ -1,6 +1,6 @@
 import PageTitle from "@/app/components/PageTitle";
+import WorkImageMorph from "@/app/components/WorkImageMorph";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
@@ -37,9 +37,13 @@ export default function PostList({ category, posts }: Props) {
 				{posts.map((post) => (
 					<div key={post.slug} className="p-2">
 						<Card className="w-full transition duration-200 ease-out shadow-lg hover:shadow-2xl">
-							<Link href={`/${category.slug}/${post.slug}`}>
+							<Link
+								href={`/${category.slug}/${post.slug}`}
+								transitionTypes={["nav-forward"]}
+							>
 								<CardContent className="p-0">
-									<Image
+									<WorkImageMorph
+										slug={post.slug}
 										src={post.imageUrl}
 										alt={post.imageTitle}
 										width={500}

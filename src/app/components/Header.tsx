@@ -10,9 +10,13 @@ export default async function Header() {
 	});
 
 	return (
-		<header className="flex items-center justify-between w-full px-2 bg-background opacity-90 fixed z-1">
+		<header
+			className="flex items-center justify-between w-full px-2 bg-background opacity-90 fixed z-1"
+			style={{ viewTransitionName: "site-header" }}
+		>
 			<Link
 				href="/"
+				transitionTypes={["nav-back"]}
 				className="center white-bold h-14 px-2 text-2xl hover:bg-hover"
 			>
 				<h1>msykn</h1>

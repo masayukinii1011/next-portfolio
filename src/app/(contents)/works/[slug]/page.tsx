@@ -1,4 +1,5 @@
 import PostDetail from "@/app/components/PostDetail";
+import RouteTransition from "@/app/components/RouteTransition";
 import { getPostBySlug, getPostSlugsByCategorySlug } from "@/app/contentful";
 import { buildDescription } from "@/lib/contentful-utils";
 import { DEFAULT_DESCRIPTION, createPageMetadata } from "@/lib/metadata";
@@ -44,15 +45,18 @@ export default async function WorksSlugPage({ params }: Props) {
 	}
 
 	return (
-		<PostDetail
-			title={post.title}
-			category={post.category.slug}
-			imageUrl={post.image.url}
-			imageTitle={post.image.title}
-			githubUrl={post.githubUrl}
-			demoUrl={post.demoUrl}
-			body={post.body}
-		/>
+		<RouteTransition>
+			<PostDetail
+				title={post.title}
+				category={post.category.slug}
+				slug={post.slug}
+				imageUrl={post.image.url}
+				imageTitle={post.image.title}
+				githubUrl={post.githubUrl}
+				demoUrl={post.demoUrl}
+				body={post.body}
+			/>
+		</RouteTransition>
 	);
 }
 

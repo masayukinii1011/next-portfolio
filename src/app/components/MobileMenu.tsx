@@ -67,6 +67,7 @@ export default function MobileMenu({
 							<li key={category.slug}>
 								<Link
 									href={`/${category.slug}`}
+									transitionTypes={["nav-forward"]}
 									className="white-bold inline-block w-full p-2 hover:bg-hover"
 								>
 									{category.title}
