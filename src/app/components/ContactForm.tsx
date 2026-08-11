@@ -31,6 +31,7 @@ export const formSchema = z.object({
 	message: z.string().min(1, {
 		message: "メッセージを入力してください。",
 	}),
+	website: z.string().max(0).optional(),
 });
 
 export default function ContactForm({
@@ -44,10 +45,15 @@ export default function ContactForm({
 			name: "",
 			email: "",
 			message: "",
+			website: "",
 		},
 	});
 
 	async function onSubmit(values: z.infer<typeof formSchema>) {
+		if (values.website) {
+			return;
+		}
+
 		if (!sendMessageApi) {
 			toast({
 				description: "メッセージ送信APIが定義されていません。",
@@ -57,9 +63,10 @@ export default function ContactForm({
 		}
 
 		try {
+			const { website: _website, ...payload } = values;
 			const res = await fetch(sendMessageApi, {
 				method: "POST",
-				body: JSON.stringify(values),
+				body: JSON.stringify(payload),
 				headers: { "Content-Type": "application/json" },
 			});
 
@@ -67,6 +74,7 @@ export default function ContactForm({
 				throw new Error(`エラー: ${res.status}`);
 			}
 
+			form.reset();
 			toast({
 				description: "メッセージが送信されました。",
 			});
@@ -84,12 +92,28 @@ export default function ContactForm({
 			<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
 				<FormField
 					control={form.control}
+					name="website"
+					render={({ field }) => (
+						<FormItem className="hidden" aria-hidden="true">
+							<FormLabel>Website</FormLabel>
+							<FormControl>
+								<Input tabIndex={-1} autoComplete="off" {...field} />
+							</FormControl>
+						</FormItem>
+					)}
+				/>
+				<FormField
+					control={form.control}
 					name="name"
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel className="text-lg font-bold">Name</FormLabel>
 							<FormControl>
-								<Input className="bg-slate-100" {...field} />
+								<Input
+									className="bg-slate-100"
+									autoComplete="name"
+									{...field}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -102,7 +126,12 @@ export default function ContactForm({
 						<FormItem>
 							<FormLabel className="text-lg font-bold">Email</FormLabel>
 							<FormControl>
-								<Input className="bg-slate-100" {...field} />
+								<Input
+									type="email"
+									className="bg-slate-100"
+									autoComplete="email"
+									{...field}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
