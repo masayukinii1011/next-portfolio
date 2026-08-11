@@ -33,6 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
       - name: Create .env.production
         run: |
           echo "CTF_SPACE_ID=${{ secrets.CTF_SPACE_ID }}" >> .env.production
@@ -44,7 +50,7 @@ jobs:
         run: npm run build
 
       - name: Sync s3
-        uses: jakejarvis/s3-sync-action@master
+        uses: jakejarvis/s3-sync-action@0.5.1
         with:
           args: --follow-symlinks --delete
         env:
@@ -55,7 +61,7 @@ jobs:
           SOURCE_DIR: 'out'
 
       - name: Invalidate CloudFront
-        uses: chetan/invalidate-cloudfront-action@master
+        uses: chetan/invalidate-cloudfront-action@v2
         env:
           DISTRIBUTION: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           PATHS: '/*'
