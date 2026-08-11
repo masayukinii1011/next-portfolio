@@ -20,22 +20,30 @@ export default function MobileMenu({
 }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const pathname = usePathname();
-	// 画面遷移時にSheetを閉じる
+
 	useEffect(() => {
-		pathname && setIsOpen(false);
+		if (pathname) {
+			setIsOpen(false);
+		}
 	}, [pathname]);
 
 	return (
 		<Sheet open={isOpen} onOpenChange={setIsOpen}>
 			<SheetTrigger asChild className="text-white">
-				<button type="button" className="p-2">
+				<button
+					type="button"
+					className="p-2"
+					aria-label="メニューを開く"
+					aria-expanded={isOpen}
+					aria-controls="mobile-navigation"
+				>
 					<svg
 						className="h-6 w-6 text-white"
 						fill="none"
 						stroke="currentColor"
 						viewBox="0 0 24 24"
+						aria-hidden="true"
 					>
-						<title>Menu Icon</title>
 						<path
 							strokeLinecap="round"
 							strokeLinejoin="round"
@@ -53,7 +61,7 @@ export default function MobileMenu({
 					<SheetTitle>Categories</SheetTitle>
 					<SheetDescription>Categories</SheetDescription>
 				</SheetHeader>
-				<nav>
+				<nav id="mobile-navigation" aria-label="モバイルナビゲーション">
 					<ul>
 						{categories.map((category) => (
 							<li key={category.slug}>

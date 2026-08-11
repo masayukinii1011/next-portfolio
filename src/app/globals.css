@@ -63,9 +63,28 @@
 		}
 	}
 
+	@media (prefers-reduced-motion: reduce) {
+		.home-letter {
+			animation: none;
+			transition: none;
+
+			&:hover {
+				transform: none;
+			}
+		}
+	}
+
 	.markdown {
 		a {
 			text-decoration: underline;
+		}
+
+		h2 {
+			font-size: 1.6rem;
+			font-weight: 600;
+			line-height: 1.5;
+			margin-top: 2rem;
+			margin-bottom: 0.75rem;
 		}
 
 		h3 {
@@ -135,5 +154,17 @@
 
 	.mt-minus-10 {
 		margin-top: -2.5rem;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
 	}
 }
