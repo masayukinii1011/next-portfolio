@@ -61,3 +61,13 @@ Server Component では画面遷移判定を取得することができなかっ
 コンタクトフォームです。[該当箇所](https://github.com/masayukinii1011/next-portfolio/blob/main/src/app/components/ContactForm.tsx)
 `useForm` が Server Component で使えなかったので、Client Component にしました。
 この際、onSubmit を Server Action として扱おうとも思いましたが、SSG では Server Action が使えない (仕組みを考えれば当たり前ですが...) ので、Client Action としました。
+
+### 5. 開発・品質
+
+```bash
+npm run dev      # 開発サーバー
+npm run lint     # Biome による lint
+npm run test     # Vitest ユニットテスト
+npm run build    # 静的エクスポート (out/)
+```
+
