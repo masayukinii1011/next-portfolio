@@ -14,7 +14,7 @@
 		"indentStyle": "tab"
 	},
 	"files": {
-		"ignore": ["node_modules", "out", ".next"]
+		"ignore": ["node_modules", "out", ".next", "package-lock.json"]
 	},
 	"overrides": [
 		{
