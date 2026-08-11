@@ -2,7 +2,12 @@
 const nextConfig = {
 	output: "export",
 	images: {
-		domains: ["images.ctfassets.net"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "images.ctfassets.net",
+			},
+		],
 		unoptimized: true,
 	},
 };
