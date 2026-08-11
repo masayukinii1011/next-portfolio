@@ -13,8 +13,21 @@ type Props = {
 		slug: string;
 		imageUrl: string;
 		imageTitle: string;
+		publishDate?: string;
+		techTags?: string[];
 	}[];
 };
+
+function formatDate(dateString?: string): string {
+	if (!dateString) {
+		return "";
+	}
+	const date = new Date(dateString);
+	if (Number.isNaN(date.getTime())) {
+		return dateString;
+	}
+	return date.toLocaleDateString("ja-JP");
+}
 
 export default function PostList({ category, posts }: Props) {
 	return (
@@ -31,11 +44,32 @@ export default function PostList({ category, posts }: Props) {
 										alt={post.imageTitle}
 										width={500}
 										height={333}
+										sizes="(max-width: 768px) 100vw, 50vw"
 										className="w-full rounded-t-md"
 									/>
 								</CardContent>
-								<CardFooter className="center h-24 p-2">
+								<CardFooter className="flex flex-col items-center justify-center h-auto min-h-24 p-4 gap-2">
 									<CardTitle className="text-center">{post.title}</CardTitle>
+									{post.publishDate && (
+										<time
+											dateTime={post.publishDate}
+											className="text-sm text-muted-foreground"
+										>
+											{formatDate(post.publishDate)}
+										</time>
+									)}
+									{post.techTags && post.techTags.length > 0 && (
+										<ul className="flex flex-wrap justify-center gap-1">
+											{post.techTags.map((tag) => (
+												<li
+													key={tag}
+													className="text-xs px-2 py-0.5 bg-slate-100 rounded-full"
+												>
+													{tag}
+												</li>
+											))}
+										</ul>
+									)}
 								</CardFooter>
 							</Link>
 						</Card>

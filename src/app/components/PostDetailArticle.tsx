@@ -26,6 +26,7 @@ export default function PostDetailArticle({
 						alt={imageTitle}
 						width={640}
 						height={360}
+						sizes="(max-width: 768px) 100vw, 640px"
 						className="border-gray"
 					/>
 				</div>
