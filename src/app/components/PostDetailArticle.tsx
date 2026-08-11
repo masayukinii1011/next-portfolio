@@ -1,7 +1,7 @@
 import WorkImageMorph from "@/app/components/WorkImageMorph";
+import { markdownRemarkPlugins } from "@/lib/markdown";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
 
 type Props = {
 	slug?: string;
@@ -76,7 +76,7 @@ export default function PostDetailArticle({
 					)}
 				</div>
 			)}
-			<ReactMarkdown remarkPlugins={[remarkBreaks]} className="markdown">
+			<ReactMarkdown remarkPlugins={markdownRemarkPlugins} className="markdown">
 				{body}
 			</ReactMarkdown>
 		</>

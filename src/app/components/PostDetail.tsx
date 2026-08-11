@@ -4,9 +4,10 @@ import PageTitle from "@/app/components/PageTitle";
 import PostDetailArticle from "@/app/components/PostDetailArticle";
 import { sendMessageApi } from "@/app/sendMessage";
 import { DEFAULT_MUSIC_EMBEDS, embedUrlsToEmbeds } from "@/data/music-embeds";
+import type { MusicEmbed } from "@/data/music-embeds";
+import { markdownRemarkPlugins } from "@/lib/markdown";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
-import remarkBreaks from "remark-breaks";
 
 const GITHUB_URL = "https://github.com/masayukinii1011";
 
@@ -20,6 +21,7 @@ type Props = {
 	demoUrl: string;
 	body: string;
 	embedUrls?: string[];
+	musicEmbeds?: MusicEmbed[];
 };
 
 export default function PostDetail({
@@ -32,9 +34,13 @@ export default function PostDetail({
 	demoUrl,
 	body,
 	embedUrls = [],
+	musicEmbeds,
 }: Props) {
-	const musicEmbeds =
-		embedUrls.length > 0 ? embedUrlsToEmbeds(embedUrls) : DEFAULT_MUSIC_EMBEDS;
+	const resolvedMusicEmbeds =
+		musicEmbeds ??
+		(embedUrls.length > 0
+			? embedUrlsToEmbeds(embedUrls)
+			: DEFAULT_MUSIC_EMBEDS);
 
 	return (
 		<div className="mx-4 px-8 pb-8 bg-white rounded-lg shadow-lg">
@@ -43,7 +49,7 @@ export default function PostDetail({
 				<>
 					{body && (
 						<ReactMarkdown
-							remarkPlugins={[remarkBreaks]}
+							remarkPlugins={markdownRemarkPlugins}
 							className="markdown mb-8"
 						>
 							{body}
@@ -68,7 +74,7 @@ export default function PostDetail({
 					</div>
 				</>
 			) : category === "music" ? (
-				<MusicArticle body={body} embeds={musicEmbeds} />
+				<MusicArticle body={body} embeds={resolvedMusicEmbeds} />
 			) : (
 				<PostDetailArticle
 					slug={slug}

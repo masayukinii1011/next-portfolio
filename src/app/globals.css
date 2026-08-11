@@ -135,6 +135,26 @@
 			margin-left: 1.25rem;
 			margin-bottom: 0.75rem;
 		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 0.75rem;
+			font-size: 0.9rem;
+		}
+
+		th,
+		td {
+			border: 1px solid #e0e0e0;
+			padding: 0.5rem 0.75rem;
+			text-align: left;
+			vertical-align: top;
+		}
+
+		th {
+			font-weight: 600;
+			background-color: rgba(0, 0, 0, 0.03);
+		}
 	}
 }
 
