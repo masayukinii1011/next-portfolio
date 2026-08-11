@@ -3,6 +3,12 @@ import localFont from "next/font/local";
 import "@/app/globals.css";
 import Header from "@/app/components/Header";
 import { Toaster } from "@/components/ui/toaster";
+import {
+	DEFAULT_DESCRIPTION,
+	SITE_NAME,
+	SITE_URL,
+	createPageMetadata,
+} from "@/lib/metadata";
 
 const geistSans = localFont({
 	src: "../../public/fonts/GeistVF.woff",
@@ -16,8 +22,12 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-	title: "msykn's portfolio",
-	description: "msykn's portfolio",
+	metadataBase: new URL(SITE_URL),
+	...createPageMetadata({
+		title: SITE_NAME,
+		description: DEFAULT_DESCRIPTION,
+		path: "/",
+	}),
 };
 
 export default function RootLayout({
@@ -31,10 +41,16 @@ export default function RootLayout({
 				<link rel="icon" href="/favicon.ico" sizes="any" />
 			</head>
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-50 break-all`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-50 break-words`}
 			>
+				<a
+					href="#main"
+					className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:px-4 focus:py-2 focus:bg-white focus:text-foreground focus:rounded-md"
+				>
+					メインコンテンツへスキップ
+				</a>
 				<Header />
-				{children}
+				<main id="main">{children}</main>
 				<Toaster />
 			</body>
 		</html>
