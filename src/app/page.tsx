@@ -35,8 +35,11 @@ function AnimatedTitle() {
 export default function Home() {
 	return (
 		<RouteTransition>
-			<div className="min-h-screen bg-background text-white center flex-col px-4">
-				<AnimatedTitle />
+			<div className="flex min-h-dvh flex-col bg-background text-white px-4">
+				<div className="h-14 shrink-0" aria-hidden="true" />
+				<div className="flex flex-1 items-center justify-center pb-14">
+					<AnimatedTitle />
+				</div>
 			</div>
 		</RouteTransition>
 	);
