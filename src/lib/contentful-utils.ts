@@ -78,17 +78,111 @@ type RawPostFields = {
 	embedUrls?: unknown;
 };
 
+function cleanTechTag(raw: string): string {
+	return raw
+		.replace(/^\|+|\|+$/g, "")
+		.replace(/\*\*/g, "")
+		.replace(/`/g, "")
+		.replace(/\s*（[^）]*）\s*$/, "")
+		.trim();
+}
+
+function splitTechTagParts(text: string): string[] {
+	return text
+		.split(/\s+\/\s+|,\s*|、\s*/)
+		.map(cleanTechTag)
+		.filter(Boolean);
+}
+
+function extractTechTagsFromTable(section: string): string[] {
+	const tags: string[] = [];
+	const lines = section
+		.split("\n")
+		.map((line) => line.trim())
+		.filter(Boolean);
+	let pastSeparator = false;
+	let skippedHeader = false;
+
+	for (const line of lines) {
+		if (!line.startsWith("|")) {
+			continue;
+		}
+
+		if (/^\|[\s\-:|]+\|$/.test(line)) {
+			pastSeparator = true;
+			continue;
+		}
+
+		if (!pastSeparator && !skippedHeader) {
+			skippedHeader = true;
+			continue;
+		}
+
+		const cells = line
+			.split("|")
+			.map((cell) => cell.trim())
+			.filter(Boolean);
+		if (cells.length === 0) {
+			continue;
+		}
+
+		const valueCell = cells[cells.length - 1];
+		for (const tag of splitTechTagParts(valueCell)) {
+			tags.push(tag);
+		}
+	}
+
+	return tags;
+}
+
+function extractTechTagsFromList(section: string): string[] {
+	const tags: string[] = [];
+
+	for (const line of section.split("\n")) {
+		const cleaned = line
+			.trim()
+			.replace(/^[-*]\s+/, "")
+			.replace(/\*\*[^*]+\*\*:\s*/, "");
+		if (!cleaned || cleaned.startsWith("|")) {
+			continue;
+		}
+
+		for (const tag of splitTechTagParts(cleaned)) {
+			tags.push(tag);
+		}
+	}
+
+	return tags;
+}
+
+function dedupeTechTags(tags: string[]): string[] {
+	const seen = new Set<string>();
+	const unique: string[] = [];
+
+	for (const tag of tags) {
+		if (seen.has(tag)) {
+			continue;
+		}
+		seen.add(tag);
+		unique.push(tag);
+	}
+
+	return unique;
+}
+
 export function extractTechTagsFromBody(body: string): string[] {
 	const match = body.match(/## 技術スタック\s*\n+([\s\S]*?)(?=\n## |\n### |$)/);
 	if (!match) {
 		return [];
 	}
 
-	return match[1]
-		.split(/[\n,/]/)
-		.map((item) => item.replace(/^[-*]\s*/, "").trim())
-		.filter(Boolean)
-		.slice(0, 6);
+	const section = match[1].trim();
+	const isTable = section.split("\n").some((line) => line.trim().startsWith("|"));
+	const tags = isTable
+		? extractTechTagsFromTable(section)
+		: extractTechTagsFromList(section);
+
+	return dedupeTechTags(tags).slice(0, 6);
 }
 
 export function convertPostFields(fields: RawPostFields): Post {

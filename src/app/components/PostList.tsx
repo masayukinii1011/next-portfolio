@@ -35,24 +35,27 @@ export default function PostList({ category, posts }: Props) {
 			<PageTitle title={category.title} />
 			<div className="grid gap-4 grid-cols-1 md:grid-cols-2">
 				{posts.map((post) => (
-					<div key={post.slug} className="p-2">
-						<Card className="w-full transition duration-200 ease-out shadow-lg hover:shadow-2xl">
+					<div key={post.slug} className="flex h-full p-2">
+						<Card className="flex h-full w-full flex-col transition duration-200 ease-out shadow-lg hover:shadow-2xl">
 							<Link
 								href={`/${category.slug}/${post.slug}`}
 								transitionTypes={["nav-forward"]}
+								className="flex h-full flex-col"
 							>
 								<CardContent className="p-0">
-									<WorkImageMorph
-										slug={post.slug}
-										src={post.imageUrl}
-										alt={post.imageTitle}
-										width={500}
-										height={333}
-										sizes="(max-width: 768px) 100vw, 50vw"
-										className="w-full rounded-t-md"
-									/>
+									<div className="aspect-[3/2] overflow-hidden rounded-t-md">
+										<WorkImageMorph
+											slug={post.slug}
+											src={post.imageUrl}
+											alt={post.imageTitle}
+											width={500}
+											height={333}
+											sizes="(max-width: 768px) 100vw, 50vw"
+											className="h-full w-full object-cover"
+										/>
+									</div>
 								</CardContent>
-								<CardFooter className="flex flex-col items-center justify-center h-auto min-h-24 p-4 gap-2">
+								<CardFooter className="flex flex-1 flex-col items-center justify-start gap-2 p-4">
 									<CardTitle className="text-center">{post.title}</CardTitle>
 									{post.publishDate && (
 										<time

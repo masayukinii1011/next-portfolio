@@ -70,6 +70,64 @@ describe("extractTechTagsFromBody", () => {
 			"AWS",
 		]);
 	});
+
+	it("parses tags from markdown table in tech stack section", () => {
+		const body = [
+			"## 技術スタック",
+			"",
+			"| 領域 | 採用技術 |",
+			"|------|---------|",
+			"| フロント | Next.js 16 (App Router), React 19, TypeScript |",
+			"| UI | shadcn/ui / Tailwind CSS |",
+			"",
+			"## 成果・学び",
+		].join("\n");
+
+		expect(extractTechTagsFromBody(body)).toEqual([
+			"Next.js 16 (App Router)",
+			"React 19",
+			"TypeScript",
+			"shadcn/ui",
+			"Tailwind CSS",
+		]);
+	});
+
+	it("dedupes hosting tags with parenthetical details", () => {
+		const body = [
+			"## 技術スタック",
+			"",
+			"| 用途 | 技術 |",
+			"|------|------|",
+			"| ホスティング | Firebase Hosting |",
+			"| 音源配信 | Firebase Hosting（`static/sounds/c/`） |",
+			"",
+			"## 成果・学び",
+		].join("\n");
+
+		expect(extractTechTagsFromBody(body)).toEqual(["Firebase Hosting"]);
+	});
+
+	it("parses tags from labeled list in tech stack section", () => {
+		const body = [
+			"## 技術スタック",
+			"",
+			"**フロント**: Angular 19",
+			"Ionic 8",
+			"TypeScript",
+			"**オーディオ**: Tone.js 15",
+			"Web Audio API",
+			"",
+			"## 成果・学び",
+		].join("\n");
+
+		expect(extractTechTagsFromBody(body)).toEqual([
+			"Angular 19",
+			"Ionic 8",
+			"TypeScript",
+			"Tone.js 15",
+			"Web Audio API",
+		]);
+	});
 });
 
 describe("convertPostFields", () => {

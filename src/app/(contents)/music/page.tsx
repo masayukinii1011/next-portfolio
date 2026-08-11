@@ -1,8 +1,10 @@
 import PostDetail from "@/app/components/PostDetail";
 import RouteTransition from "@/app/components/RouteTransition";
 import { getPostBySlug } from "@/app/contentful";
+import { DEFAULT_MUSIC_EMBEDS, embedUrlsToEmbeds } from "@/data/music-embeds";
 import { buildDescription } from "@/lib/contentful-utils";
 import { DEFAULT_DESCRIPTION, createPageMetadata } from "@/lib/metadata";
+import { enrichMusicEmbeds } from "@/lib/soundcloud";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,6 +31,11 @@ export default async function MusicPage() {
 		return null;
 	});
 
+	const baseEmbeds = post?.embedUrls?.length
+		? embedUrlsToEmbeds(post.embedUrls)
+		: DEFAULT_MUSIC_EMBEDS;
+	const musicEmbeds = await enrichMusicEmbeds(baseEmbeds);
+
 	if (!post) {
 		return (
 			<RouteTransition>
@@ -40,6 +47,7 @@ export default async function MusicPage() {
 					githubUrl=""
 					demoUrl=""
 					body=""
+					musicEmbeds={musicEmbeds}
 				/>
 			</RouteTransition>
 		);
@@ -55,7 +63,7 @@ export default async function MusicPage() {
 				githubUrl={post.githubUrl}
 				demoUrl={post.demoUrl}
 				body={post.body}
-				embedUrls={post.embedUrls}
+				musicEmbeds={musicEmbeds}
 			/>
 		</RouteTransition>
 	);
