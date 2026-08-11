@@ -118,7 +118,8 @@ export async function fetchSoundCloudPlaylist(
 	);
 
 	const playlistArtwork =
-		playlist.artwork_url ?? rawTracks.find((track) => track.artwork_url)?.artwork_url;
+		playlist.artwork_url ??
+		rawTracks.find((track) => track.artwork_url)?.artwork_url;
 
 	return {
 		tracks,

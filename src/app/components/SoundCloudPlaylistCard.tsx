@@ -2,11 +2,11 @@
 
 import type { MusicEmbed } from "@/data/music-embeds";
 import {
+	MUSIC_CARD_REFERENCE_TRACK_COUNT,
+	SOUNDCLOUD_PLAYER_HEIGHT,
 	buildSoundCloudPlaylistSrc,
 	getUnifiedMusicCardHeight,
 	getUnifiedMusicCardTrackListHeight,
-	MUSIC_CARD_REFERENCE_TRACK_COUNT,
-	SOUNDCLOUD_PLAYER_HEIGHT,
 } from "@/data/music-embeds";
 import { useEffect, useId, useRef, useState } from "react";
 
@@ -94,10 +94,11 @@ export default function SoundCloudPlaylistCard({ embed }: Props) {
 
 	const tracks = embed.tracks ?? [];
 	const trackListHeight = getUnifiedMusicCardTrackListHeight();
-	const hasScrollableTracks =
-		tracks.length > MUSIC_CARD_REFERENCE_TRACK_COUNT;
+	const hasScrollableTracks = tracks.length > MUSIC_CARD_REFERENCE_TRACK_COUNT;
 	const playlistId = embed.playlistId;
-	const playerSrc = playlistId ? buildSoundCloudPlaylistSrc(playlistId) : embed.src;
+	const playerSrc = playlistId
+		? buildSoundCloudPlaylistSrc(playlistId)
+		: embed.src;
 
 	useEffect(() => {
 		if (!iframeRef.current) {
@@ -131,7 +132,7 @@ export default function SoundCloudPlaylistCard({ embed }: Props) {
 			cancelled = true;
 			widgetRef.current = null;
 		};
-	}, [playerSrc]);
+	}, []);
 
 	const playTrack = (index: number) => {
 		const widget = widgetRef.current;
@@ -195,7 +196,9 @@ export default function SoundCloudPlaylistCard({ embed }: Props) {
 			<div className="border-t border-gray/70">
 				{tracks.length === 0 ? (
 					<p className="px-4 py-3 text-sm text-muted-foreground">
-						{isReady ? "曲一覧を取得できませんでした。" : "プレイリストを読み込み中…"}
+						{isReady
+							? "曲一覧を取得できませんでした。"
+							: "プレイリストを読み込み中…"}
 					</p>
 				) : (
 					<ol

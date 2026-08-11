@@ -177,7 +177,9 @@ export function extractTechTagsFromBody(body: string): string[] {
 	}
 
 	const section = match[1].trim();
-	const isTable = section.split("\n").some((line) => line.trim().startsWith("|"));
+	const isTable = section
+		.split("\n")
+		.some((line) => line.trim().startsWith("|"));
 	const tags = isTable
 		? extractTechTagsFromTable(section)
 		: extractTechTagsFromList(section);

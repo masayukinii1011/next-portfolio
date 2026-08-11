@@ -46,7 +46,11 @@ export function getUnifiedMusicCardHeight(): number {
 }
 
 export function getSoundCloudCardHeight(trackCount: number): number {
-	return MUSIC_CARD_HEADER_HEIGHT + SOUNDCLOUD_PLAYER_HEIGHT + getSoundCloudTrackListHeight(trackCount);
+	return (
+		MUSIC_CARD_HEADER_HEIGHT +
+		SOUNDCLOUD_PLAYER_HEIGHT +
+		getSoundCloudTrackListHeight(trackCount)
+	);
 }
 
 export function buildSoundCloudPlaylistSrc(playlistId: string): string {
