@@ -19,28 +19,42 @@
 ## アーキテクチャ
 
 ```mermaid
-flowchart LR
-  subgraph deploy["静的サイト配信"]
-    Contentful -->|Webhook| GitHubActions[GitHub Actions]
-    GitHubActions --> Build["next build (SSG)"]
-    Build --> S3
-    S3 --> CloudFront["CloudFront<br/>Lambda@Edge"]
-    CloudFront --> Site[msykn.com]
+flowchart TB
+  subgraph build["ビルド時（CI/CD）"]
+    direction TB
+    Push["main への push"] --> GA[GitHub Actions]
+    Webhook["Contentful Webhook<br/>repository_dispatch"] --> GA
+    GA --> QA["lint / test"]
+    QA --> Build["next build (SSG)"]
+    CDA[(Contentful CDA)] -->|ビルド時に REST 取得| Build
+    Build --> Out["out/ 静的ファイル"]
+    Out --> S3[(S3)]
+    S3 --> Invalidate[CloudFront invalidation]
   end
-```
 
-```mermaid
-flowchart LR
-  subgraph contact["問い合わせ API"]
-    Form["/contact"] -->|POST| APIGW[API Gateway]
+  subgraph runtime["閲覧時（ランタイム）"]
+    direction TB
+    Browser[Browser] --> DNS[Route 53]
+    DNS --> CF[CloudFront]
+    CF --> Edge[Lambda@Edge<br/>URL 正規化]
+    Edge --> S3Origin[(S3)]
+    Browser -->|画像| Assets[images.ctfassets.net]
+  end
+
+  subgraph contact["問い合わせ（ランタイム・別系統）"]
+    direction TB
+    Browser2[Browser] -->|GET /contact| CF
+    Browser2 -->|POST JSON| APIGW[API Gateway]
     APIGW --> Lambda
-    Lambda --> SES
+    Lambda --> SES[SES]
   end
 ```
 
-- `output: "export"` による完全静的エクスポート
-- Contentful 更新時に Webhook で自動ビルド・デプロイ
-- Lambda@Edge による URL 正規化（旧構成から継続）
+- `output: "export"` による完全静的エクスポート（Contentful はビルド時のみ取得、閲覧時は S3 上の HTML を配信）
+- デプロイのトリガーは `main` push と Contentful Webhook（`repository_dispatch`）の 2 系統
+- GitHub Actions は lint / test の後にビルドし、S3 sync と CloudFront invalidation まで実行
+- 画像はランタイムで Contentful CDN（`images.ctfassets.net`）から直接取得
+- 問い合わせ POST は CloudFront を経由せず、ビルド時に埋め込んだ API Gateway URL へ直接送信
 
 ## ページ構成
 
