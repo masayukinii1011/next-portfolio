@@ -11,12 +11,7 @@ export function ensureStringArray(value: unknown): string[] {
 	return value.filter((item): item is string => typeof item === "string");
 }
 
-export function ensureCategory(value: unknown): Category {
-	const category = {
-		slug: "",
-		title: "",
-	};
-
+function getLinkedEntryFields(value: unknown): Record<string, unknown> | null {
 	if (
 		value &&
 		typeof value === "object" &&
@@ -24,45 +19,34 @@ export function ensureCategory(value: unknown): Category {
 		value.fields &&
 		typeof value.fields === "object"
 	) {
-		if ("slug" in value.fields && typeof value.fields.slug === "string") {
-			category.slug = value.fields.slug;
-		}
-		if ("title" in value.fields && typeof value.fields.title === "string") {
-			category.title = value.fields.title;
-		}
+		return value.fields as Record<string, unknown>;
 	}
+	return null;
+}
 
-	return category;
+export function ensureCategory(value: unknown): Category {
+	const fields = getLinkedEntryFields(value);
+
+	return {
+		slug: typeof fields?.slug === "string" ? fields.slug : "",
+		title: typeof fields?.title === "string" ? fields.title : "",
+	};
 }
 
 export function ensureImage(value: unknown): Image {
-	const image = {
-		title: "",
-		url: "",
+	const fields = getLinkedEntryFields(value);
+	const file = fields?.file;
+
+	return {
+		title: typeof fields?.title === "string" ? fields.title : "",
+		url:
+			file &&
+			typeof file === "object" &&
+			"url" in file &&
+			typeof file.url === "string"
+				? `https:${file.url}`
+				: "",
 	};
-
-	if (
-		value &&
-		typeof value === "object" &&
-		"fields" in value &&
-		value.fields &&
-		typeof value.fields === "object"
-	) {
-		if ("title" in value.fields && typeof value.fields.title === "string") {
-			image.title = value.fields.title;
-		}
-		if (
-			"file" in value.fields &&
-			typeof value.fields.file === "object" &&
-			value.fields.file &&
-			"url" in value.fields.file &&
-			typeof value.fields.file.url === "string"
-		) {
-			image.url = `https:${value.fields.file.url}`;
-		}
-	}
-
-	return image;
 }
 
 type RawPostFields = {
@@ -155,19 +139,10 @@ function extractTechTagsFromList(section: string): string[] {
 	return tags;
 }
 
+const MAX_TECH_TAGS = 6;
+
 function dedupeTechTags(tags: string[]): string[] {
-	const seen = new Set<string>();
-	const unique: string[] = [];
-
-	for (const tag of tags) {
-		if (seen.has(tag)) {
-			continue;
-		}
-		seen.add(tag);
-		unique.push(tag);
-	}
-
-	return unique;
+	return [...new Set(tags)];
 }
 
 export function extractTechTagsFromBody(body: string): string[] {
@@ -184,12 +159,15 @@ export function extractTechTagsFromBody(body: string): string[] {
 		? extractTechTagsFromTable(section)
 		: extractTechTagsFromList(section);
 
-	return dedupeTechTags(tags).slice(0, 6);
+	return dedupeTechTags(tags).slice(0, MAX_TECH_TAGS);
+}
+
+function resolveTechTags(body: string, explicitTags: string[]): string[] {
+	return explicitTags.length > 0 ? explicitTags : extractTechTagsFromBody(body);
 }
 
 export function convertPostFields(fields: RawPostFields): Post {
 	const body = ensureString(fields.body);
-	const techTags = ensureStringArray(fields.techTags);
 
 	return {
 		slug: ensureString(fields.slug),
@@ -200,7 +178,7 @@ export function convertPostFields(fields: RawPostFields): Post {
 		demoUrl: ensureString(fields.demoUrl),
 		category: ensureCategory(fields.category),
 		image: ensureImage(fields.image),
-		techTags: techTags.length > 0 ? techTags : extractTechTagsFromBody(body),
+		techTags: resolveTechTags(body, ensureStringArray(fields.techTags)),
 		embedUrls: ensureStringArray(fields.embedUrls),
 	};
 }
