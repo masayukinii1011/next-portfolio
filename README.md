@@ -18,36 +18,39 @@
 
 ## アーキテクチャ
 
+### ビルド時（CI/CD）
+
 ```mermaid
 flowchart TB
-  subgraph build["ビルド時（CI/CD）"]
-    direction TB
-    Push["main への push"] --> GA[GitHub Actions]
-    Webhook["Contentful Webhook<br/>repository_dispatch"] --> GA
-    GA --> QA["lint / test"]
-    QA --> Build["next build (SSG)"]
-    CDA[(Contentful CDA)] -->|ビルド時に REST 取得| Build
-    Build --> Out["out/ 静的ファイル"]
-    Out --> S3[(S3)]
-    S3 --> Invalidate[CloudFront invalidation]
-  end
+  Push["main push"] --> GA["GitHub Actions"]
+  Webhook["Contentful Webhook repository_dispatch"] --> GA
+  GA --> QA["lint test"]
+  QA --> Build["next build SSG"]
+  CDA["Contentful CDA"] -->|"ビルド時 REST 取得"| Build
+  Build --> Out["out 静的ファイル"]
+  Out --> S3["S3"]
+  S3 --> Invalidate["CloudFront invalidation"]
+```
 
-  subgraph runtime["閲覧時（ランタイム）"]
-    direction TB
-    Browser[Browser] --> DNS[Route 53]
-    DNS --> CF[CloudFront]
-    CF --> Edge[Lambda@Edge<br/>URL 正規化]
-    Edge --> S3Origin[(S3)]
-    Browser -->|画像| Assets[images.ctfassets.net]
-  end
+### 閲覧時（ランタイム）
 
-  subgraph contact["問い合わせ（ランタイム・別系統）"]
-    direction TB
-    Browser2[Browser] -->|GET /contact| CF
-    Browser2 -->|POST JSON| APIGW[API Gateway]
-    APIGW --> Lambda
-    Lambda --> SES[SES]
-  end
+```mermaid
+flowchart TB
+  Browser["Browser"] --> DNS["Route 53"]
+  DNS --> CF["CloudFront"]
+  CF --> Edge["Lambda Edge URL 正規化"]
+  Edge --> S3Origin["S3"]
+  Browser -->|"画像"| Assets["images.ctfassets.net"]
+```
+
+### 問い合わせ（ランタイム・別系統）
+
+```mermaid
+flowchart TB
+  Browser2["Browser"] --> Static["CloudFront 静的 HTML"]
+  Browser2 -->|"POST JSON"| APIGW["API Gateway"]
+  APIGW --> Lambda["Lambda"]
+  Lambda --> SES["SES"]
 ```
 
 - `output: "export"` による完全静的エクスポート（Contentful はビルド時のみ取得、閲覧時は S3 上の HTML を配信）
