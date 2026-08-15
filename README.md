@@ -18,11 +18,24 @@
 
 ## アーキテクチャ
 
+```mermaid
+flowchart LR
+  subgraph deploy["静的サイト配信"]
+    Contentful -->|Webhook| GitHubActions[GitHub Actions]
+    GitHubActions --> Build["next build (SSG)"]
+    Build --> S3
+    S3 --> CloudFront["CloudFront<br/>Lambda@Edge"]
+    CloudFront --> Site[msykn.com]
+  end
 ```
-Contentful ──Webhook──▶ GitHub Actions ──▶ next build (SSG) ──▶ S3 ──▶ CloudFront
-                                                              └──▶ msykn.com
 
-/contact ──POST──▶ API Gateway ──▶ Lambda ──▶ SES
+```mermaid
+flowchart LR
+  subgraph contact["問い合わせ API"]
+    Form["/contact"] -->|POST| APIGW[API Gateway]
+    APIGW --> Lambda
+    Lambda --> SES
+  end
 ```
 
 - `output: "export"` による完全静的エクスポート
