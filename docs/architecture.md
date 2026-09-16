@@ -4,8 +4,8 @@
 
 ## スタック
 
-- Next.js 16 App Router + `output: "export"`（[ADR 0001](adr/0001-nextjs-static-export.md)）
-- ビルド時に CDA で Entry 取得 → `out/`（[ADR 0003](adr/0003-contentful-rest-cda.md)）
+- Next.js 16 App Router + `output: "export"`（[adr.md](adr.md)）
+- ビルド時に CDA で Entry 取得 → `out/`（同上）
 - UI: shadcn/ui + Tailwind（`src/components/ui/`）
 
 ## ディレクトリ
@@ -21,7 +21,7 @@ src/data/          # music embed フォールバック
 
 1. Server Component が `getPostBySlug` / `getPostsByCategorySlug` を呼ぶ
 2. Works 詳細は `generateStaticParams` で slug 一覧から SSG
-3. `SEND_MESSAGE_API` を Client に埋め込み（[ADR 0005](adr/0005-contact-lambda-not-server-actions.md)）
+3. `SEND_MESSAGE_API` を Client に埋め込み（[adr.md](adr.md)）
 
 ## Client Component（静的 export の制約）
 

@@ -90,6 +90,6 @@ npm run dev
 | [docs/architecture.md](docs/architecture.md) | ディレクトリ、データ流れ、Client 境界 |
 | [docs/content-model.md](docs/content-model.md) | Contentful フィールドと category |
 | [docs/runbook.md](docs/runbook.md) | 環境変数、CI secrets、障害時 |
-| [docs/adr/README.md](docs/adr/README.md) | 技術選定 ADR |
+| [docs/adr.md](docs/adr.md) | 技術選定 ADR |
 | [src/app/contentful.ts](src/app/contentful.ts) | CDA 取得（コード正本） |
 | [src/lib/contentful-utils.ts](src/lib/contentful-utils.ts) | Entry 変換（コード正本） |
